@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-version = "2.3.20"
+version = "2.3.21"
 
 install_requires = [
     "pymem",
@@ -34,7 +34,7 @@ setup(
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'wxinfo = pywxdump.cli:console_run',
+            'wxinfo = pywxdump_mini.cli:console_run',
         ],
     },
     setup_requires=['wheel']
