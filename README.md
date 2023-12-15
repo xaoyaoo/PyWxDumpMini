@@ -22,7 +22,8 @@
 # 二、使用说明
 
 ```shell
-wxinfo
+pip install pywxdump-mini # 或者下载exe文件（7.5M），地址 https://github.com/xaoyaoo/pywxdumpmini/releases
+wxinfo # 查看微信信息 包含key wxid filepath
 ```
 
 参看  https://github.com/xaoyaoo/pywxdump
