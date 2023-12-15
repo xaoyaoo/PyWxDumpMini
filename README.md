@@ -21,7 +21,11 @@
 
 # 二、使用说明
 
-参看  https://github.com/xaoyaoo/pywxdump 
+```shell
+wxinfo
+```
+
+参看  https://github.com/xaoyaoo/pywxdump
 
 # 三、免责声明（非常重要！！！！！！！）
 
