@@ -1,0 +1,71 @@
+name: Publish
+
+on:
+  # 当master分支有push时，触发action
+  push:
+    tags:
+      - 'v*'  # 以 'v' 开头的标签触发工作流程
+
+jobs:
+  publish:
+    name: Publish Pypi and Create Release
+    # 此作业在 Linux 上运行
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository # 检出仓库
+        uses: actions/checkout@v2 # 使用 GitHub 官方的 checkout action
+
+      - name: Set git fetch depth # 设置 git fetch 深度
+        run: |
+          git fetch --prune --unshallow  # 获取完整的 git 历史记录
+
+      - name: Set up Python # 设置 Python 环境
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          cache: 'pip' # caching pip dependencies
+      - run: |
+          python -m pip install --upgrade pip
+          pip install build
+          python -m pip install --upgrade twine
+          pip install pyinstaller
+          pip install -r requirements.txt
+
+      - name: Build package
+        run: |
+          python -m build
+          pip install -U .
+          python tests/build_exe.py
+
+      - name: Build Executable
+        run: |
+          pyinstaller --clean --distpath=dist dist/pywxdump.spec
+
+      - name: test
+        run: |
+          ls -l dist
+          ls -l "${{ github.workspace }}"
+
+      - name: Publish package with Twine # 使用 Twine 发布到 PyPI
+        run: |
+          twine upload dist/*.whl dist/*.tar.gz
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref.tag }}
+          body: |
+            [Auto Release] Update PyWxDump to ${{ github.ref }}
+          draft: false
+          prerelease: false
+          files: |
+            dist/*.exe
+            dist/*.whl
