@@ -3,11 +3,12 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-with open("requirements.txt","r", encoding="utf-8") as f:
-    install_requires = f.readlines()
-
-
 version = "2.3.19"
+
+install_requires = [
+    "pymem",
+    "psutil"
+]
 
 setup(
     name="pywxdump_mini",
@@ -20,16 +21,11 @@ setup(
     url="https://github.com/xaoyaoo/PyWxDumpMini",
     license='MIT',
 
-    packages=['pywxdump', 'pywxdump.ui', 'pywxdump.wx_info', 'pywxdump.analyzer'],
-    package_dir={'pywxdump': 'pywxdump',
-                 'pywxdump.wx_info': 'pywxdump/wx_info',
-                 'pywxdump.analyzer': 'pywxdump/analyzer',
-                 'pywxdump.ui': 'pywxdump/ui',
+    packages=['pywxdump_mini'],
+    package_dir={'pywxdump_mini': 'pywxdump_mini'
                  },
 
-    package_data={
-        'pywxdump': ['version_list.json', 'ui/templates/*']
-    },
+    package_data={},
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
@@ -38,7 +34,7 @@ setup(
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'wxdump = pywxdump.cli:console_run',
+            'wxinfo = pywxdump.cli:console_run',
         ],
     },
     setup_requires=['wheel']
