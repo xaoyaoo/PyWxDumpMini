@@ -19,6 +19,8 @@
 
 [PyWxDump](https://github.com/xaoyaoo/pywxdump) 超级简化版本，仅支持key以及wxid以及filepath的导出，不支持其他功能。
 
+主要面向安全人员
+
 # 二、使用说明
 
 ```shell
