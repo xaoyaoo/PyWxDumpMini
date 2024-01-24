@@ -6,15 +6,7 @@
 # Date:         2023/11/10
 # -------------------------------------------------------------------------------
 import shutil
-import site
 import os
-
-code = """
-from pywxdump_mini import read_info
-a = read_info(is_logging=True)
-with open("wx_info.txt", "w", encoding="utf-8") as f:
-    f.write(str(a))
-"""
 
 spec_content = '''
 # -*- mode: python ; coding: utf-8 -*-
@@ -66,8 +58,10 @@ coll = COLLECT(exe,
                name='wxdump')
 
 '''
+
 # 创建文件夹
 os.makedirs("dist", exist_ok=True)
+
 # 当前文件所在目录
 current_path = os.path.dirname(os.path.abspath(__file__))
 shutil.copy(os.path.join(os.path.dirname(current_path), "pywxdump_mini", "simplify_wx_info.py"), "dist/tmp.py")  # 复制代码
@@ -85,6 +79,6 @@ with open(spec_file, 'w', encoding="utf-8") as f:
     f.write(spec_content.strip())
 
 # 执行打包命令
-cmd = f'pyinstaller --clean  --distpath=dist {spec_file}'
+cmd = f'pyinstaller --clean --distpath=dist {spec_file}'
 print(cmd)
 # os.system(cmd)
