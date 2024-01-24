@@ -27,16 +27,14 @@ jobs:
           cache: 'pip' # caching pip dependencies
       - run: |
           python -m pip install --upgrade pip
-          pip install build
+#          pip install build
           python -m pip install --upgrade twine
           pip install pyinstaller
           pip install -r requirements.txt
-          pip install pillow
 
       - name: Build package
         run: |
           python -m build
-          pip install -U .
           python tests/build_exe.py
 
       - name: Build Executable
