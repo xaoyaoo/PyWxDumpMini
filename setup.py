@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-version = "2.3.21"
+version = "2.4.0"
 
 install_requires = [
     "pymem",
@@ -22,8 +22,7 @@ setup(
     license='MIT',
 
     packages=['pywxdump_mini'],
-    package_dir={'pywxdump_mini': 'pywxdump_mini'
-                 },
+    package_dir={'pywxdump_mini': 'pywxdump_mini'},
 
     package_data={},
     classifiers=[
@@ -34,7 +33,7 @@ setup(
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'wxinfo = pywxdump_mini.cli:console_run',
+            'wxinfo = pywxdump_mini.simplify_wx_info:read_info',
         ],
     },
     setup_requires=['wheel']

@@ -208,7 +208,7 @@ def get_key(pid, db_path, addr_len):
 
 
 # 读取微信信息(account,mobile,name,mail,wxid,key)
-def read_info(is_logging=False):
+def read_info(is_logging=False, is_save=False):
     wechat_process = []
     result = []
     for process in psutil.process_iter(['name', 'exe', 'pid', 'cmdline']):
@@ -235,7 +235,6 @@ def read_info(is_logging=False):
         tmp_rd['key'] = get_key(tmp_rd['pid'], tmp_rd['filePath'], addrLen) if tmp_rd['filePath'] != "None" else "None"
         result.append(tmp_rd)
 
-
     if is_logging:
         print("=" * 32)
         if isinstance(result, str):  # 输出报错
@@ -246,8 +245,12 @@ def read_info(is_logging=False):
                     print(f"[+] {k:>8}: {v}")
                 print(end="-" * 32 + "\n" if i != len(result) - 1 else "")
         print("=" * 32)
+
+    if is_save:
+        with open("wx_info.txt", "w", encoding="utf-8") as f:
+            f.write(str(result))
     return result
 
 
 if __name__ == '__main__':
-    read_info(is_logging=True)
+    a = read_info(is_logging=True, is_save=True)
