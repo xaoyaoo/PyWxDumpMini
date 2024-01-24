@@ -71,7 +71,7 @@ os.makedirs("dist", exist_ok=True)
 # 当前文件所在目录
 current_path = os.path.dirname(os.path.abspath(__file__))
 shutil.copy(os.path.join(os.path.dirname(current_path), "pywxdump_mini", "simplify_wx_info.py"), "dist/tmp.py")  # 复制代码
-shutil.copy("icon.ico", "dist/icon.ico")  # 复制图标
+shutil.copy(os.path.join(current_path, "icon.ico"), "dist/icon.ico")  # 复制图标
 
 require_path = os.path.join(os.path.dirname(current_path), "requirements.txt")  # requirements.txt 路径
 with open(require_path, "r", encoding="utf-8") as f:
@@ -88,4 +88,3 @@ with open(spec_file, 'w', encoding="utf-8") as f:
 cmd = f'pyinstaller --clean  --distpath=dist {spec_file}'
 print(cmd)
 # os.system(cmd)
-
