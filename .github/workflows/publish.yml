@@ -27,13 +27,17 @@ jobs:
       - run: |
           python -m pip install --upgrade pip
           python -m pip install --upgrade twine
+          pip install --upgrade build
           pip install pyinstaller
           pip install -r requirements.txt
 
       - name: Build package
         run: |
-          python -m build
           python tests/build_exe.py
+
+      - name: Build Wheel
+        run: |
+          python -m build --wheel 
 
       - name: Build Executable
         run: |
